@@ -3,9 +3,8 @@ This is a database with webapp, that can search the Londen Underground for price
 
 ## npm plugins
 socket.io
-async
 express
-node-sqlite
+node-mysql
 
 ## database
-sqlite
+mysql
