@@ -1,0 +1,13 @@
+{
+  "name": "not-php",
+  "version": "0.0.0",
+  "description": "A Londen Underground server with database using socket.io",
+  "main": "server.js",
+  "repository": "",
+  "author": "Micha den Heijer <micha@michadenheijer.com>",
+  "dependencies": {
+    "compression": "^1.7.3",
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
+  }
+}
