@@ -403,7 +403,7 @@ const createUser = function(userId, zipCode, password, callback) {
       });
     }
   });
-}
+};
 //Open the server
 http.listen(8080, function() {
   console.log('App is running at: https://not-php-michabeste.c9users.io');
