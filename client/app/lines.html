@@ -4,7 +4,7 @@
 <head>
 	<meta class="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>LondenUnderground | Home</title>
+	<title>LondenUnderground | Lines</title>
 	<link rel='stylesheet' href='../css/style.css' />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 	<script src="../js/load_data.js"></script>
@@ -27,53 +27,25 @@
 			<div class="app__inner">
 				<div class="app__menu">
 					<ul class="vMenu">
-						<li><a href="/app/" class="vMenu--active">Home</a></li>
+						<li><a href="/app/">Home</a></li>
 						<li><a href="/app/stations">Stations</a></li>
-						<li><a href="/app/lines">Lines</a></li>
-						<li><a href="/app/trains">Trains</a></li>
-						<li><a href="/app/past-rides">Past rides</a></li>
-						<li><a href="/app/balance">Balance</a></li>
+						<li><a href="/app/lines" class="vMenu--active">Lines</a></li>
+						<li><a href="/app/user">My Information</a></li>
 					</ul>
 				</div>
 				<div class="app__main">
 					<div class="text-container">
-						<h3 class="app__main__title">Home</h3>
-						<p>Welcome, choose an option or look at the information below.</p>
-						<h4>Leaving trains</h4>
-						<table>
-							<tr>
-								<th>From</th>
-								<th>Line</th>
-								<th>At</th>
-							</tr>
-							<tr>
-								<td>Data 1</td>
-								<td>Data 2</td>
-								<td>Data 3</td>
-							</tr>
-							<tr>
-								<td>Data 1</td>
-								<td>Data 2</td>
-								<td>Data 3</td>
-							</tr>
-							<tr>
-								<td>Data 1</td>
-								<td>Data 2</td>
-								<td>Data 3</td>
-							</tr>
-							<tr>
-								<td>Data 1</td>
-								<td>Data 2</td>
-								<td>Data 3</td>
-							</tr>
-						</table>
-						<h4>Buziest stations</h4>
-						<p>These are the buziest stations, click on their names for more information</p>
-						<ol>
-							<li><a href="test" class="link">First</a></li>
-							<li><a href="test2" class="link">Second</a></li>
-							<li><a href="test3" class="link">Third</a></li>
-						</ol>
+						<div id="top_information">
+							<h3 class="app__main__title">Lines</h3>
+							<p>Choose a line below for more information.</p>
+						</div>
+						<div id="lines">
+							<h4>Choose a line</h4>
+							<img src="../images/loading.gif">
+						</div>
+						<div id="line_info">
+							<img src="../images/loading.gif">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -81,6 +53,10 @@
 	</div>
 
 	<script src='../js/app.min.js'></script>
+	<script type="text/javascript">
+		/* global lines*/
+		lines();
+	</script>
 </body>
 
 </html>

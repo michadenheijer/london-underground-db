@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+	<meta class="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>LondenUnderground | Home</title>
+	<link rel='stylesheet' href='../css/style.css' />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+	<script src="../js/load_data.js"></script>
+</head>
+
+<body>
+	<!-- navbar -->
+	<div class="navbar">
+		<nav class="nav__mobile"></nav>
+		<div class="container">
+			<div class="navbar__inner">
+				<a href="/app/" class="navbar__logo"><img id="logo_img" src="../images/logo.png"></a>
+			</div>
+		</div>
+	</div>
+	</div>
+	<!-- Page content -->
+	<div class="app">
+		<div class="container">
+			<div class="app__inner">
+				<div class="app__menu">
+					<ul class="vMenu">
+						<li><a href="/app/">Home</a></li>
+						<li><a href="/app/stations">Stations</a></li>
+						<li><a href="/app/lines">Lines</a></li>
+						<li><a href="/app/user" class="vMenu--active">My Information</a></li>
+					</ul>
+				</div>
+				<div class="app__main">
+					<div class="text-container">
+						<div id="all_information">
+						<h3 class="app__main__title">My Information</h3>
+						<h4>Balance</h4>
+						<strong>£<%= user_balance %></strong><br><br>
+						<button class="button button__primary" onclick="topUp()">Top up...</button>
+						<h4>Last trips</h4>
+						<table>
+							<tr>
+								<th>From</th>
+								<th>To</th>
+								<th>Cost</th>
+							</tr>
+							<% trips.forEach(function(trips) { %>
+							<tr>
+								<td><%= trips.departure_station %></td>
+								<td><%= trips.arrival_station %></td>
+								<td><%= trips.price %></td>
+							</tr>
+							<% }); %>
+						</table>
+						<h4>Personal information</h4>
+						<p>Just edit the text area's and click save!</p>
+						<form id="user_data">
+							<div class="double">
+								<div class="half">
+									<label for="first">First name</label>
+									<input type="text" id="first" placeholder="<%= personal.first_name %>" oninput="enableSave()">
+								</div>
+								<div class="half">
+									<label for="second">Last name</label>
+									<input type="text" id="second" placeholder="<%= personal.last_name %>" oninput="enableSave()">
+								</div>
+							</div>
+							<div class="double">
+								<div class="half">
+									<label for="third">Street address</label>
+									<input type="text" id="third" placeholder="<%= personal.street_address %>" oninput="enableSave()">
+								</div>
+								<div class="half">
+									<label for="fourth">Address number</label>
+									<input type="text" id="fourth" placeholder="<%= personal.address_number %>" oninput="enableSave()">
+								</div>
+							</div>
+							<label>Zip code</label>
+							<input type="text" placeholder="<%= personal.zip_code %>" id="zip" oninput="enableSave()">
+							<button id="save_button" type="button" class="button button__primary" disabled="true" onclick="editUserData()">Save</button>
+						</form>
+						</div>
+						<div id="top_up">
+							<form id="top_up_form">
+								<h4>Top up</h4>
+								<select>
+									<option value=0>Select an option</option>
+									<option value=5>£5</option>
+									<option value=10>£10</option>
+									<option value=25>£25</option>
+									<option value=50>£50</option>
+									<option value=100>£100</option>
+								</select>
+								<button class="button button__delete" type="button" onclick="confirmTopUp()">Top up...</button>
+								<button class="button button__delete" type="button" onclick="cancelTopUp()">Cancel</button>
+							</form>
+						</div>
+						<div id="confirm_top_up">
+							<h4>Are you sure?</h4>
+							<p>Do you want to top up with £<strong id="top_up_value"></strong>?</p>
+							<button class="button button__primary" onclick="sendTopUp()">Yes</button> <button class="button button__delete" onclick="cancelSendTopUp()">Cancel</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src='../js/app.min.js'></script>
+	<script>
+		user();
+	</script>
+</body>
+
+</html>

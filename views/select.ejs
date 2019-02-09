@@ -27,32 +27,31 @@
 			<div class="app__inner">
 				<div class="app__menu">
 					<ul class="vMenu">
-						<li><a href="/app/" class="vMenu--active">Home</a></li>
+						<li><a href="/app/">Home</a></li>
 						<li><a href="/app/stations">Stations</a></li>
 						<li><a href="/app/lines">Lines</a></li>
-						<li><a href="/app/user">My Information</a></li>
+						<li><a href="/app/user" class="vMenu--active">My Information</a></li>
 					</ul>
 				</div>
 				<div class="app__main">
 					<div class="text-container">
-						<h3 class="app__main__title">Home</h3>
-						<p>Welcome at the homepage of the LondenUnderground app. We're happy to help and we hope that we can help you as soon as possible.</p>
-						<h4>Leaving trains</h4>
-						<p>If you want to be in one of these trains, please hurry up, they'll leave soon!</p>
-						<table id="next_three"><img id="next_three_loading" src="../images/loading.gif"></table>
-						<h4>Busiest stations</h4>
-						<p>These are the busiest stations, click on their names for more information</p>
-						<ol id="most_populair_station"><img src="../images/loading.gif"></ol>
+						<div id="all_information">
+						<h3 class="app__main__title">Select your account</h3>
+						<p>Select your account using your card number. Ex. 1</p>
+						<form>
+							<label>Card Number</label>
+							<input name="user" type="text" placeholder="Card Number, Ex. 1">
+							<button type="button" onclick="goTo()">Select</button>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<script src='../js/app.js'></script>
-	<script type="text/javascript">
-		/*global home*/
-		home();
+	<script src='../js/app.min.js'></script>
+	<script>
+		select();
 	</script>
 </body>
 

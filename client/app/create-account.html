@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+	<meta class="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>Login for your Underground account</title>
+	<link rel='stylesheet' href='../css/style.css' />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+</head>
+
+<body>
+	<!-- navbar -->
+	<div class="navbar">
+		<nav class="nav__mobile"></nav>
+		<div class="container">
+			<div class="navbar__inner">
+				<a href="/app/" class="navbar__logo"><img id="logo_img" src="../images/logo.png"></a>
+			</div>
+		</div>
+	</div>
+	<!-- Authentication pages -->
+	<div class="auth">
+		<div class="container">
+			<div class="auth__inner">
+				<div class="auth__media">
+					<img src="../images/undraw_selfie.svg">
+				</div>
+				<div class="auth__auth">
+					<h1 class="auth__title">Create your account</h1>
+					<p>To access your personal information online you need to enter your card number, create a password, and fill in your zip code so no everyone can create your account.</p>
+					<form action="/app/login" autocompelete="on" role="presentation" class="form">
+						<label>Card Number</label>
+						<input type="text" name="cardnumber" id='cardnumber' placeholder="123">
+						<label>Zip Code</label>
+						<input type="text" name="zipcode" id='zipcode' placeholder="B28 9EU">
+						<label>Create password</label>
+						<input type="password" name="password" id='password' placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" autocomplete="off">
+						<button type='button' onclick="createAccount()" id="create_button" class="button button__accent">Create account</button>
+						<a href="/app/login">
+							<h6 class="left-align">Log in?</h6>
+						</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src='../js/app.min.js'></script>
+	<script src='../js/load_data.js'></script>
+</body>
+
+</html>

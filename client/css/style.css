@@ -956,6 +956,7 @@ select::-ms-expand {
   transition: 0;
   color: #fff;
   text-decoration: none;
+  clear: right;
 }
 
 .navbar__menu {
@@ -1962,7 +1963,11 @@ td {
 
 .next_station {
   font-size: 3em;
-  line-height: 35%;
+  line-height: 45%;
+}
+
+#line_info {
+  display: none;
 }
 
 @media(max-width: 300px) {
@@ -1975,4 +1980,17 @@ td {
   .time_right {
     width: 100%;
   }
+}
+
+#top_up {
+  display: none;
+}
+
+#confirm_top_up {
+  display: none;
+}
+
+#logout {
+  float: right;
+  margin: auto 0;
 }

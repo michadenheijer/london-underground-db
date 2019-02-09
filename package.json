@@ -3,11 +3,17 @@
   "version": "0.0.0",
   "description": "A Londen Underground server with database using socket.io",
   "main": "server.js",
-  "repository": "",
+  "repository": "https://github.com/michadenheijer/londen-underground-db",
+  "license": "BSD-3-Clause",
   "author": "Micha den Heijer <micha@michadenheijer.com>",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "compression": "^1.7.3",
+    "cookie-parser": "^1.4.3",
+    "cookies": "^0.7.3",
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "mysql": "^2.16.0",
     "socket.io": "^2.2.0"
   }
 }
