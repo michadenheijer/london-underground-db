@@ -310,3 +310,9 @@ INSERT INTO time (train_id, station_id, line_id, arrival_hour, arrival_minute, d
 INSERT INTO time (train_id, station_id, line_id, arrival_hour, arrival_minute, departure_hour, departure_minute, arrival_day, arrival_month, arrival_year) VALUES (5, 13, 2, 08, 29, 08, 32, 11, 8, 2020);
 INSERT INTO time (train_id, station_id, line_id, arrival_hour, arrival_minute, departure_hour, departure_minute, arrival_day, arrival_month, arrival_year) VALUES (9, 1, 3, 08, 40, 08, 42, 11, 8, 2020);
 INSERT INTO time (train_id, station_id, line_id, arrival_hour, arrival_minute, departure_hour, departure_minute, arrival_day, arrival_month, arrival_year) VALUES (13, 15, 4, 08, 59, 09, 02, 11, 8, 2020);
+
+CREATE TABLE users(
+    passenger_id INTEGER,
+    password TEXT);
+    
+INSERT INTO users (passenger_id, password) VALUES (1, "password");
