@@ -109,7 +109,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('get_lines', function(msg) {
-    con.query('SELECT id, name FROM line_names', function(err, rows, fields) {
+    con.query('SELECT id, name, color FROM line_names', function(err, rows, fields) {
       if (err) {
         console.error(err);
         return;
@@ -209,6 +209,17 @@ io.on('connection', function(socket) {
       }
     });
   });
+  socket.on("train_info", function(msg) {
+    try {
+      con.query('select trains.id, line_names.name, manufacturer, type from trains join line_names on line_id=line_names.id;', function(err, rows, fields) {
+        if (err) { return }
+        socket.emit("train_info", rows);
+      });
+    }
+    catch (err) {
+      return;
+    }
+  });
   socket.on("login_user", function(msg) {
     try {
       checkPassword(msg.user, msg.password, function(err, loggedIn) {
@@ -246,6 +257,49 @@ io.on('connection', function(socket) {
       socket.emit('create_user', error);
     });
   });
+  socket.on("admin_lines", function(msg) {
+    if (!msg) { socket.emit("admin_lines", "error"); return }
+    if (!msg == "admin") { socket.emit("admin_lines", "wrong_password"); return }
+    try {
+      con.query("SELECT id, name, color FROM line_names;", function(err, rows, fields) {
+        if (err) { socket.emit("admin_lines", "error"); return }
+        socket.emit("admin_lines", rows);
+      });
+    }
+    catch (err) {
+      socket.emit("admin_lines", "error");
+    }
+  });
+  socket.on("change_line", function(msg) {
+    if (!msg) {
+      socket.emit("change_line", "error");
+    }
+    var id, name, color;
+    try {
+      id = msg.id;
+      name = msg.name;
+      color = msg.color;
+    }
+    catch (err) {
+      socket.emit("change_line", "error");
+      return;
+    }
+    try {
+      if (msg.name) {
+        con.query('UPDATE line_names SET name="' + msg.name.toString() + '" WHERE id=' + msg.id.toString() + ';', function(err, rows, fields) {
+          if (err) { return }
+        });
+      }
+      if (msg.color) {
+        con.query('UPDATE line_names SET color="' + msg.color.toString() + '" WHERE id=' + msg.id.toString() + ';', function(err, rows, fields) {
+          if (err) { return }
+        });
+      }
+    }
+    catch (err) {
+      return;
+    }
+  });
   socket.on("delete_account", function(msg) {
     try {
       var user = msg.id;
@@ -256,7 +310,7 @@ io.on('connection', function(socket) {
           return;
         }
         if (!loggedIn) {
-          socket.emit("delete_account", "You haven't been logged in, could write code that could check, but I dont.")
+          socket.emit("delete_account", "You haven't been logged in, could write code that could check, but I dont.");
           return;
         }
         con.query('DELETE FROM users WHERE passenger_id = ' + user.toString() + ";", function(err, rows, fields) {
@@ -404,6 +458,7 @@ const createUser = function(userId, zipCode, password, callback) {
     }
   });
 };
+
 //Open the server
 http.listen(8080, function() {
   console.log('App is running at: https://not-php-michabeste.c9users.io');

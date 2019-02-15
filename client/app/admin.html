@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta class="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>LondenUnderground | Admin</title>
+    <link rel='stylesheet' href='../css/style.css' />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script src="../js/load_data.js"></script>
+</head>
+
+<body>
+    <!-- navbar -->
+    <div class="navbar">
+        <nav class="nav__mobile"></nav>
+        <div class="container">
+            <div class="navbar__inner">
+                <a href="/app/" class="navbar__logo"><img id="logo_img" src="../images/logo.png"></a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Page content -->
+    <div class="app">
+        <div class="container">
+            <div class="app__inner">
+                <div class="app__menu">
+                    <ul class="vMenu">
+                        <li><a href="/app/">Home</a></li>
+                        <li><a href="/app/stations">Stations</a></li>
+                        <li><a href="/app/lines">Lines</a></li>
+                        <li><a href="/app/user">My Information</a></li>
+                        <li><a href="/app/admin" class="vMenu--active">Admin</a></li>
+                    </ul>
+                </div>
+                <div class="app__main">
+                    <div class="text-container">
+                        <div id="original">
+                            <h2>Edit line information</h2>
+                            <div id="lines">
+                                Loading...
+                            </div>
+                        </div>
+                        <div id="selected_line">
+                            <h2>Change line information</h2>
+                            <form>
+                                <input id="selected_line_name" type='text' placeholder="Loading..." oninput="adminSaveButton()">
+                                <input id="selected_line_color" class="jscolor" onchange="adminSaveButton()">
+                                <br><br><button class="button button__delete" id="admin_line" type="button" disabled="true" onclick="adminSave()">Save</button>
+                            </form>
+                            <button class="button button__primary" onclick="adminReturn()">Return</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src='../js/app.min.js'></script>
+    <script src="../js/jscolor.js"></script>
+    <script>
+        /* global admin */
+        admin();
+    </script>
+</body>
+
+</html>

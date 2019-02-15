@@ -74,7 +74,8 @@ INSERT INTO zone_price (begin_zone_id, end_zone_id, price) VALUES (6, 6, 1.6);
    
 CREATE TABLE line_names (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    name TEXT);
+    name TEXT,
+    color TEXT);
     
 INSERT INTO line_names (name) VALUES ("Bakerloo");
 INSERT INTO line_names (name) VALUES ("Central");

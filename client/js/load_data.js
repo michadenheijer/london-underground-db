@@ -83,7 +83,7 @@ function lines() {
     socket.on("get_lines", function(msg) {
         document.getElementById('lines').innerHTML = "";
         for (var i = 0; i < msg.length; i++) {
-            document.getElementById("lines").innerHTML += "<button class='button button__primary' onclick='getLine(" + msg[i].id + ")'>" + msg[i].name + "</button><br>";
+            document.getElementById("lines").innerHTML += "<button class='button button__primary' style='background-color: #" + msg[i].color + "' onclick='getLine(" + msg[i].id + ")'>" + msg[i].name + "</button><br>";
         }
     });
 }
@@ -129,6 +129,76 @@ function user() {
     });
 }
 
+function admin() {
+    socket.emit("admin_lines", "admin");
+    socket.on("admin_lines", function(msg) {
+        document.getElementById("lines").innerHTML = "";
+        for (var i = 0; i < msg.length; i++) {
+            if (msg[i].color == null) {
+                document.getElementById("lines").innerHTML += "<button class='button button__primary' onclick='getLineAdmin(" + msg[i].id + ", \"" + msg[i].name + "\", \"" + msg[i].color + "\")'>" + msg[i].name + "</button><br>";
+                continue;
+            }
+            document.getElementById("lines").innerHTML += "<button class='button button__primary' style='background-color: #" + msg[i].color + "' onclick='getLineAdmin(" + msg[i].id + ", \"" + msg[i].name + "\", \"" + msg[i].color + "\")'>" + msg[i].name + "</button><br>";
+        }
+    });
+}
+
+var serverColor, currentID;
+
+function getLineAdmin(id, name, color) {
+    document.getElementById("original").style.display = "none";
+    document.getElementById("selected_line").style.display = "inline";
+    document.getElementById("selected_line_name").placeholder = name.toString();
+    if (!color || color == "null") {
+        color = "Select a color";
+    }
+    serverColor = color;
+    currentID = id;
+    console.log(color);
+    document.getElementById("selected_line_color").value = color;
+}
+
+function adminSaveButton() {
+    if (document.getElementById("selected_line_name").value) {
+        document.getElementById("admin_line").disabled = false;
+        return;
+    }
+    console.log(document.getElementById("selected_line_color").value);
+    if (document.getElementById("selected_line_color").value != serverColor) {
+        document.getElementById("admin_line").disabled = false;
+        return;
+    }
+    document.getElementById("admin_line").disabled = true;
+}
+
+function adminSave() {
+    var toSave = { id: "", name: "", color: "" };
+    if (document.getElementById("selected_line_color").value != serverColor) {
+        toSave.color = document.getElementById("selected_line_color").value;
+    }
+    toSave.name = document.getElementById("selected_line_name").value;
+    if (toSave.name) {
+        if (!/^[a-zA-Z]+$/.test(toSave.name)) {
+            alert("Name can only contain letters");
+            return;
+        }
+    }
+    toSave.id = currentID;
+    socket.emit("change_line", toSave);
+    document.getElementById("selected_line").style.display = "none";
+    document.getElementById("original").style.display = "initial";
+    socket.emit("admin_lines", "admin");
+    document.getElementById("selected_line_color").value = null;
+    document.getElementById("selected_line_name").value = null;
+}
+
+function adminReturn() {
+    document.getElementById("original").style.display = "initial";
+    document.getElementById("selected_line").style.display = "none";
+    document.getElementById("selected_line_color").value = null;
+    document.getElementById("selected_line_name").value = null;
+}
+
 function getStation(id) {
     document.getElementById("search_container").style.display = "none";
     document.getElementById("populair_station_container").style.display = "none";
@@ -156,7 +226,7 @@ function getStation(id) {
                 }
                 else {
                     document.getElementById('station_information').innerHTML += "<div id='" + msg[i].line.toString() + "'></div>";
-                    document.getElementById(msg[i].line.toString()).innerHTML = "<img src='../images/lines/" + msg[i].line.toString() + ".svg'><p id='" + msg[i].line.toString() + "_text'></p>";
+                    document.getElementById(msg[i].line.toString()).innerHTML = "<img id='img_" + msg[i].line.toString() + "' onerror='showBackup(\"" + msg[i].line.toString() + "\")' src='../images/lines/" + msg[i].line.toString() + ".svg'>" + "<div style='display: none' id='backup_title_" + msg[i].line.toString() + "'><h3>" + msg[i].line.toString() + "</h3></div>" + "<p id='" + msg[i].line.toString() + "_text'></p>";
                     document.getElementById(msg[i].line.toString() + "_text").innerHTML += "<div class='time_container'><div class='time_left'><span class='stress'>Arrival</span> " + msg[i].arrival_hour.toLocaleString('en-UK', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + msg[i].arrival_minute.toLocaleString('en-UK', { minimumIntegerDigits: 2, useGrouping: false }) + "<br>" + "<span class='stress'>Departure</span> " + msg[i].departure_hour.toLocaleString('en-UK', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + msg[i].departure_minute.toLocaleString('en-UK', { minimumIntegerDigits: 2, useGrouping: false }) + "<br>" + "<span class='stress'>Platform</span> " + msg[i].platform.toString() + "</div>" + "<div class='time_right'>To:<br><span class='next_station'><span id='msg" + i.toString() + "'>Loading...</span></span></div></div>";
                     //document.getElementsByClassName("next_station")[i].innerHTML = "testing";
 
@@ -165,6 +235,11 @@ function getStation(id) {
             }
         }
     });
+}
+
+function showBackup(show) {
+    document.getElementById("img_" + show).style.display = "none";
+    document.getElementById("backup_title_" + show).style.display = "inline";
 }
 
 function returnToStations() {

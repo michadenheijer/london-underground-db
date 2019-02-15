@@ -1994,3 +1994,7 @@ td {
   float: right;
   margin: auto 0;
 }
+
+#selected_line {
+  display: none;
+}
